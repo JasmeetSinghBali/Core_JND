@@ -18,12 +18,12 @@ where we specify what event occurs in the html itself like the
 ****onclick='alert("you clicked me!")'****
 where the text in '' is treated as javascript
 
-Try Clicking the button below.
 
-<button onclick='alert("you clicked me!");alert("Stop Clicking ME !! thats enough for the Demo!")'>Inline Event Button Click Me!</button>
+***<*button onclick='alert("you clicked me!");alert("Stop Clicking ME !! thats enough for the Demo!")'>Inline Event Button Click Me!</button*>***
 
 
-<button ondblclick='alert("you clicked me!");alert("Stop Clicking ME !! thats enough for the Demo!")'>Inline Event Button Double Click</button>
+***<*button ondblclick='alert("you clicked me!");alert("Stop Clicking ME !! thats enough for the Demo!")'>Inline Event Button Double Click</button*>***
+
 # Disadvantages of Inline Events
 
 - Not Flexible
