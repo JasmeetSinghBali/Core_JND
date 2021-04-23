@@ -1,4 +1,4 @@
-// Create Your Own Promise
+// ================== Create Your Own Promise ================================
 
 // A promise that resolve after delay of 2 seconds
 // copy and paste in console browser and press enter then type fakeRequest() and enter;
@@ -18,6 +18,8 @@ const fakeRequest=(url)=>{
 
   })
 }
+
+//========================Handling Promises============================
 
 // and then handling the above promise with .then() and .catch()
 // data is the success message the resolve part in promise and the err is the reject part of the promise we wrote above.

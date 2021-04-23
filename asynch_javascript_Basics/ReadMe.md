@@ -1,5 +1,24 @@
 # Async Javascript Basics
-***
+
+****
+****Level: Intermediate****
+****
+## Topics Covered:
+
+#### Javascript & Call Stack
+
+#### Browser Help for multiple execution as JS Single Thread
+
+####  CallBack Hell & why need Callback in the first place
+
+#### Promises & Promise magic with promise Chaining
+
+#### Creating Promises and Handling Promises(.then , .catch)
+
+#### Async Functions
+
+****
+****
 ### The call stack
 
 #### LIFO rule
@@ -87,8 +106,8 @@ in chrome also helps us to know step execution that helps in debugging purposes 
 
 ## How to Avoid Callback Hell !!
 
-#### Promises
-#### Async Functions
+#### - Promises
+#### - Async Functions
 
 ***
 
@@ -217,7 +236,25 @@ in chrome also helps us to know step execution that helps in debugging purposes 
      new Promise((resolve,reject)=>{
             reject();
             })
-
+****
 #### Custom Promise Code Snippet
 
 ****refer the custom_promise.js****
+****
+## Async Functions
+
+#### Cleaner Syntax makeup for Promises.
+
+### async keyword is use to declare a function as a async function.
+
+### whenever we declare a async function it will automatically return a promise. i.e we dont need to mention return new Promise explicitely.
+
+### if function returns a value then promise will be resolved if function returns a exception the promise will be rejected.
+
+## Await keyword
+
+### await keyword can only be used inside a async function.
+
+### await will pause the execution of the function, waiting for the promise to be resolved or rejected.
+
+### Refer async_basics.js for code example.
