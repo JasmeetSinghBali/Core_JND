@@ -1,0 +1,38 @@
+module.exports.productsName=[
+  'Apple',
+  'Blah',
+  'Something',
+  'fdfd',
+  'Yo',
+  'What',
+  'Rekt',
+  'Noo',
+  'sdsdsd',
+  'fghgh',
+  'fff',
+  'fd',
+  'ssss',
+  'wett',
+  'mooh',
+  'wewe',
+  'nono',
+  'lala'
+]
+
+module.exports.productsPrice=[
+  10,
+  100,
+  110,
+  1340,
+  40,
+  70,
+  10020,
+  60,
+  90,
+  10000,
+  450,
+  130,
+  150,
+  170,
+  180
+]
