@@ -1,14 +1,12 @@
-# Mongoose , Schema And Validations Basics
+# Mongoose CRUD Basics, Schema And Validations Basics
 
 ****Level : Beginner****
 
 ## Topics Covered :
 
 #### Mongoose CRUD Basics
-####
-####
-####
 
+#### Mongoose Schema Validations
 ***
 
 ## Mongoose & Mongoose Drivers
@@ -24,7 +22,7 @@
 
 ***
 
-## Mongoose CRUD Basics
+## Topic-1 : Mongoose CRUD Basics
 
 #### STEP 1 : Connect to the mongoDB atlas via URI.
 
@@ -107,5 +105,241 @@
               .catch((err)=>{
                 console.log(err);
                 })
+***
 
-#### ****Find With Mongoose****
+### ****Find With Mongoose****
+
+#### ****find****
+
+- ****Note mongoose queries are executed when we use find methods. these mongoose queries are not promises. these queries have .then() but to make it fully fledged promise use .exec() function also the find() returns array.****
+
+- ****consider a model named Data****
+
+            Data.find({}).then(data=>console.log(data));
+            // will give us all the data of the collection named Data
+
+            Data.find({id:1}).then(data=>console.log(data);
+            // will give the info about the collection document that has id 1.
+
+            Data.find({name:'Admin'}).then(data=>console.log(data));
+            // will give info about the user with name as Admin from the Data collection.
+
+            Data.find({year:{$gte:2015}}).then(data=>console.log(data));
+            // will give info about the Data with year as greater than or equal to 2015
+
+            lt // for less than
+            lte // for less than equal
+
+#### findOne()
+
+            Data.findOne({}).then(d=>console.log(d));
+            // will give the first match only i.e gives only one result.
+
+#### await and exec()
+
+            const getData=async()=>{
+              try{
+                await Data.findOne({id:1}).exec();
+              }catch(err){
+                console.log(err.stack);
+              }
+            }
+
+#### findById()            
+
+            await Data.findById(id).exec();
+
+
+***
+
+### Updating with mongoose
+
+- ****Note- that update() in mongoose will only update the first document that matches the filter regardless of multi options. use replaceOne() if want to overwrite an entire document rather than using atomic operators like $set.****
+
+#### updateOne()
+
+            Model.updateOne({title:'Amadeus'},{year:1984}).then(res=console.log(res))
+            // here the docment with title as Amadeus year will be changed to 1984 and then the res will show {n:1,nModified:1,ok:1}
+
+#### updateMany() ,Update multiple things at once
+
+            Model.updateMany({title:$in:['Amadeus','Stand By Me']},{rating:10}).then(res=>console.log(res))
+            // will update the rating to 10 for the document with title Amadeus and Stand by Me.
+
+#### findOneAndUpdate()
+
+- ****by default spits back the old version to get back the object with updated value/version we need to pass option named new:true will return the modified document****
+
+            var query={name:'borne'}
+            Model.findOneAndUpdate(query,{name:'jason mamoth'},options,callback)
+
+            Model.findOneAndUpdate({title:'Iron Giant'},{rating:6},{new:true}).then(m=>console.log(m))
+***
+
+### Deleting Using mongoose
+
+-****.remove()****
+
+            Model.remove({title:'Amelia'}).then(mes=>{console.log(mes)});
+            // {n:1,ok:1,deletedCount:1}
+
+#### deleteMany()
+
+            Model.deleteMany({year:{$gte:1999}}).then(mes=>{console.log(mes)});
+            // {n:2,ok:2,deletedCount:2}
+
+#### findOneAndDelete() returns the deleted document.
+
+            Model.findOneAndDelete({title:'Ice Age'}).then(m=>{
+              console.log(m)
+              });
+            // returns the document with title Ice Age that we deleted.
+
+***
+> ## -----------Mongoose CRUD Basics Ends Here------------
+***
+
+## Topic-2 : Mongoose Schema Validations
+
+- ****IMPORTANT Operation Buffering allows us to use the Models we create without waiting for mongoose to establish connection this is because mongoose buffers model function calls internally.****
+
+- ****mongoose will not throw any error by default if we use model without connecting.****
+
+             Model.findOne(
+               (err,res)=>{
+                 /*
+                 no error reported
+                 */
+                 });
+            mongoose.connect('url',{useNewUrlParser:true});
+
+
+#### Declaring a Schema with the Data type and required kinda validations.
+
+            const productSchema=new mongoose.Schema({
+              name:{
+                type:String,
+                required:true
+                },
+              price:{
+                type:Number,
+                required:true
+                },
+              isOnSale:{
+                type:Boolean
+                required:false
+                default:false
+              }
+              })
+
+            const Product=mongoose.model('Product',productSchema);
+
+#### Creating a new instance of our mongoose Schema
+
+            // note that we passed 499 as string which will not result in error as the mongoose schema validation accept something that can be turned into a number in the price prop of this Schema
+
+            // alos the color:red will not be saved and mongoose does not return any error .
+            const bike=new Product({name:'Mountain Bike',price:'499',color:'red'});
+
+            // save this new document to the productSchema Colleciton
+            bike.save().then(data=>{
+              console.log(data);
+              }).catch(err=>{
+                console.log(err.errors.name.properties.message);
+                });
+
+#### Schema Constraints
+
+           default :sets a default value for that prop
+           required : returns false if the prop associated to it is not mentioned at the time of creation of new instance of the schema.
+           select : specifies fixed set of options to select.
+           validate : Adds a user defined custom validator function for Validations.
+           get : defines a custom getter for the property
+           set :defines a custom setter for the property
+           alias: defines a virtual with the given name that gets/sets the property
+           immutable : defines prop as immutable unless the parent document has isNew:true
+           transform : Mongoose calls this function when you call Document#toJSON()
+
+****Examples****
+
+           const sampleSchema =new Schema({
+             integerOnly:{
+               type:Number
+               get:v=>Math.round(v),
+               set:v=>Math.round(v),
+               alias:'i'
+             }
+             })
+
+            const Number=mongoose.model('Number',sampleSchema);
+
+            const doc=new Number();
+            doc.integerOnly=2.0001;
+            doc.i //2
+
+### Other Schema Constraints for Data types
+
+****String****
+
+           lowercase : to call toLowerCase() on the value before saving to the DB.
+           uppercase : to call toUpperCase() on the value before saving to the DB.
+           trim :to call .trim() on the value
+           match: Regexp,create a validator that checks if value matces the regular expression.
+           enum: Array ,creates a validator checks that the value is in the given array
+           minlength: Number
+           maxlength: Number
+
+****Similarly for Number refer docs.****
+
+****To have a String of Arrays****
+
+           prop:{
+             type:[String],
+             default:['']
+           }
+           // this prop will now accept the array of String elements in it.
+***
+
+#### Validating Mongoose Updates NOTE- By default the mongoose schema validations are not applied when we use methods like .update()
+
+- ****to tell mongoose to use the validations we defined we have to pass extra option as runValidators:true****
+
+
+           const Model= new Schema(
+             {
+               title:String,
+               price:{
+                 type:Number,
+                 min:10
+               }
+
+             }
+             )
+
+            Model.findOneAndUpdate({title:'Ice Age'},{price:-100},{new:true,runValidators:true});
+
+            // the above will not be executed as we have specified price to be min 10 and mongo gonna apply that validator as we specified the option runValidators:true
+
+#### Mongoose Validation Custom Error Message
+
+****Example****
+
+            // it will show an custom Cheap message if the user set price below 10
+            const Model= new Schema(
+              {
+                title:String,
+                price:{
+                  type:Number,
+                  min:[10,'Cheap Price must be above 10']
+                }
+              })
+
+****enum hard coded options for a prop value****
+
+            // so size acceptable values are only S,L,XS,XL
+            {
+              size:{
+                type:String,
+                enum:['S','L','XS','XL']
+              }
+            }
