@@ -7,6 +7,10 @@
 #### Mongoose CRUD Basics
 
 #### Mongoose Schema Validations
+
+#### Model Instance , Static method & Virtuals
+
+#### Defining Mongoose middleware
 ***
 
 ## Mongoose & Mongoose Drivers
@@ -343,3 +347,102 @@
                 enum:['S','L','XS','XL']
               }
             }
+
+
+***
+# Topic -3
+## Instance Methods
+
+- ****you can define your own method on instance of the Model in mongoose****
+- ****cannot use arrow function as this will act weirdly if we us the arrow syntax****
+- ****this refers to the instance of the mongoose model****
+
+           Model.methods.mymethod=function(){
+             // do something
+           }
+
+           const productSchema=new Schema({name:String,type:String});
+
+           productSchema.methods.greet=function (){
+             console.log('Hi how are you');
+           };
+           const Product=mongoose.model('Product',productSchema)
+
+           const p=new Product({name:'bike',price:10});
+           p.greet();// Hi how are you
+
+
+          // here this refers to the particular instance of the Product
+          productSchema.methods.incPrice=function(){
+            this.price+=100;
+            return this.save();
+          }
+
+          const findProduct=async()=>{
+            const foundProduct=await Product.find({title:'bike'})
+            await foundProduct.incPrice();
+            console.log(foundProduct);
+          }
+
+## Model Static methods
+
+****here this refers to the Model Product itself not its instances****
+
+-****Syntax to define a static method on model instance****
+
+          productSchema.statics.changeName=function(){
+            return this.updateMany({title},{title:'Null'}) // if  {} as first parameter in updateMany means updating everything
+          }
+
+          const findProduct=async()=>{
+            await Product.changeName();
+            console.log(foundProduct);
+          }
+
+## Mongoose Virtuals
+
+****gives us ability to add property to Schema without actually that property not being occupying any space in the mongoose database hence called virtual property****
+
+          // get function
+          const personSchema=new mongoose.Schema({
+            first:String,
+            last:String
+            })
+
+          personSchema.virtual('fullname').get(function(){
+            return `${this.first} ${this.last}`
+            })
+
+          const Person=mongoose.model('Person',personSchema)
+          const tammy=new Person ({first:'Tammy', last:"chow"})
+          tammy.fullname;// Tammy chow
+
+          // set function
+          personSchema.virtual('fullname').set(function(v){
+            this.name.first=v.substr(0,v.indexof(' '))
+            this.name.last=v.substr(v.indexof(' ')+1);
+
+            })
+          tammy.fullname="William Rose"
+          //so now the full name of tammy chow is actually William Rose
+
+## defining Mongoose middlewares
+
+- ****these middlewares are pre or post hooks basically certain actions that can be done before or after certain methods on the model****
+
+-****.post will be executed after the method specified and .pre middleware that is executed before the method****
+
+          var schema =new Schema({//something});
+          schema.pre('save',async(next){
+            // do stuff before saving
+            await something();
+            console.log('Just before saving')
+            next(); // pass control to the save method
+            })
+
+         // message doc._id has been removed is displayed after the remove method on the model instance has completed.
+         schema.post('remove',async(doc){
+           await something();
+           console.log('just after removing');
+           console.log(`${doc._id} has been removed`);
+           })
