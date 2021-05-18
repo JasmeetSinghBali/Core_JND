@@ -63,3 +63,19 @@ Prerequisites:
 ***
 
 > ## Setting Up Express Session
+****refer server.js****
+
+       npm i express-session
+
+
+- ****When u observe the Application tab in the inspect tool then u will get a connect.sid that is given by express-session and this can be used by the browser to identify us****
+
+> #### Use of Compatible Session stores for Production Environment like connect-redis or mongo
+
+- ****IMPORTANT By default express-session stores these connect.sid in MemoryStore instances that is not meant for production the solution is to use Compatible session stores like redis(connect-redis) Adapter****
+
+> ## Introduction to flash messages
+
+- ****connect-flash a message to user like failure,success message that shows to the end user.****
+
+- ****when we const flash= require('connect-flash') & app.use(flash()) then every request/route will have req.flash() function that can be used for flash messages.****
