@@ -74,4 +74,38 @@ Source->https://nodejs.org/api/http.html#http_http
               });
             myEmitter.emit('event'); // .emit will trigger the .on method to give message an event occured
 
-            
+
+# Child Process in Node.js
+
+- ****Node.js works in single threaded architecture to make use of maximum resources and processors child processes comes into play.****
+
+- ****4 ways to instantiate the child process exec,spawn,execfile,fork****
+
+## EXEC
+
+- ****If we run a command via exec method whose stdout is very large like with command 'find /' in linux then it will give us the error as maxlenght for the buffer exceeded.****
+
+###  EXEC CONCLUSION-> Only for small output stdout commands like pwd,ls,mkdir etc.... but not suitable for large stdout commands like find / that finds all the files under the root directory which cause the maxBuffer length to exceed error.
+
+## EXECFILE (execFile)
+
+Syntax-> execFile('filename',(err,stdout,stderr)=>{})
+
+- ****It takes a filename and then executes that file****
+
+- ****In Linux you need to make the file executable via chmod****
+
+- ****also to make it run in node env we need to specify the shebang line****
+
+                chmod +x somefile_for_execFile.sh
+                #!/bin/bash
+
+- ****finally execute the somefile_for_execFile.sh you want to execute via node execFile_sample.js****
+
+### EXECFILE Conclusion -> execFile same as exec method only usefull for small buffer commands not suitable for large stdout commands like find / and cause maxBuffer length error on execution.
+
+# Spawn Method
+
+- ****Allows Streaming of the data in chunks rather than using buffer hence suitable for large sized stout commands also like file /****
+
+# Next to study about buffer and streams in Node.js and No buffering Feature in node.js along  with the fork method.
