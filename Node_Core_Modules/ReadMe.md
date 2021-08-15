@@ -108,4 +108,28 @@ Syntax-> execFile('filename',(err,stdout,stderr)=>{})
 
 - ****Allows Streaming of the data in chunks rather than using buffer hence suitable for large sized stout commands also like file /****
 
-# Next to study about buffer and streams in Node.js and No buffering Feature in node.js along  with the fork method.
+
+# Fork Method & Interprocess Communication
+- ****can use loadtest or apache benchmark for load testing of api****
+
+- ****load testing with 10 request with concurrecny level of 10 and route /synchronous****
+
+            loadtest -n 10 -c 10 http://localhost:5000/synchronous
+
+            loadtest -n 10 -c 10 http://localhost:5000/asynchronous
+
+            // you will get info about different routes request time complete info.
+
+- ****Conclusion -> both synchronous and asynchronous approaches take the same amount of time to serve the requests this is because when we started our app than only single process ran and hence not utilizing all the resources of our CPU to counter this the idea is to use child processes with fork method****
+
+- ****The idea is to run a new child process when a route is hit****
+
+- ****The purpose of fork() is to create a new process, which becomes the child process of the caller. After a new child process is created, both processes will execute the next instruction following the fork() system call. ... fork() returns a positive value, the process ID of the child process, to the parent.****
+
+- ****Note that the child process via fork runs on different thread  i.e the node fork.js is running on differnet thread and when we hit the forkProcess route then it runs on different thread hence improving overall performance, rerun loadtest commands again to see the different results****
+
+              loadtest -n 10 -c 10 http://localhost:5000/forkProcess
+
+              // will give far better than results than the normal single threaded longcomputation.
+
+# Next to study about buffer and streams in Node.js and No buffering Feature in node.js along  with the Clustering in Node.js
