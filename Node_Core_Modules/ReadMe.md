@@ -132,4 +132,59 @@ Syntax-> execFile('filename',(err,stdout,stderr)=>{})
 
               // will give far better than results than the normal single threaded longcomputation.
 
-# Next to study about buffer and streams in Node.js and No buffering Feature in node.js along  with the Clustering in Node.js
+# Clustering(Scaling Node.js Applications)
+
+
+- ****Clustering helps in zero down time i.e in any case of the running instances goes down then other instance will start atomatically.****
+
+- ****More requests can be handled in less time in a clustered app than a non-clustered app.****
+
+            // os module
+            const numcores = os.cpus().length;
+
+- ****further we can check that the process running is master process if yes then we can fork/create a child process with fork that way only the worker/child process will be listening to the request not the master process.****
+
+- ****Note all the worker process share the same port****
+
+              // gives the pid for different workers process.
+              processor.pid
+
+
+              output
+              Process: 14816 Server started at 5000
+              Process: 11704 Server started at 5000
+              Process: 9904 Server started at 5000
+              Process: 17480 Server started at 5000
+              Process: 11996 Server started at 5000
+              Process: 12240 Server started at 5000
+              Process: 14748 Server started at 5000
+              Process: 1224 Server started at 5000
+
+- ****The cluster module uses the round robin approach i.e the first request is handled by 14816 server then second by 11704 third with 9904 and so on...****
+
+## Difference between workers thread and child process
+https://stackoverflow.com/questions/56312692/what-is-the-difference-between-child-process-and-worker-threads
+
+        Request handled by => 11928
+        Killing worker : 11928
+        Request handled by => 17148
+        Killing worker : 17148
+        Request handled by => 13680
+        Killing worker : 13680
+        Request handled by => 17760
+        Killing worker : 17760
+        Request handled by => 3836
+        Killing worker : 3836
+        Request handled by => 16924
+        Killing worker : 16924
+        Request handled by => 10088
+        Killing worker : 10088
+        Request handled by => 7896
+        Killing worker : 7896
+
+- ****Finaly loadtest the clustered app now****
+
+              loadtest -n 1000 -c 100 http://localhost:5000/
+              // will observe different worker handling the request in the console.
+
+# Next to study about buffer and streams in Node.js and No buffering Feature in node.js along  with the MongoDB indexing Btree and PostgreSQL indexing also.
