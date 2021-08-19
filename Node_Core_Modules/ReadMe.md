@@ -187,4 +187,4 @@ https://stackoverflow.com/questions/56312692/what-is-the-difference-between-chil
               loadtest -n 1000 -c 100 http://localhost:5000/
               // will observe different worker handling the request in the console.
 
-# Next to study about buffer and streams in Node.js and No buffering Feature in node.js along  with the MongoDB indexing Btree and PostgreSQL indexing also.
+# Next to study about buffer and streams in Node.js and No buffering Feature in node.js.
