@@ -99,4 +99,5 @@
             Boolean
             List - []
 
-35 mutation
+### Mutations & user defined objects
+- [x] ****refer user defined object input type User for taking name,age,college as params while performing mutation in graphql_server.js****

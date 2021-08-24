@@ -7,6 +7,8 @@ const {buildSchema}= require('graphql');
 const {graphqlHTTP} =require('express-graphql');
 const axios = require('axios');
 
+let message = "This is a old message";
+
 // creating a read endpoint /greet
 // that responses with Welcome to GraphQL World...
 // greet:String defines the response type from the greet endpoint
@@ -31,10 +33,24 @@ const schema = buildSchema(`
     getUser: User
     getUsers:[User]
     getPostsFromExternalAPI: [Post]
+    message: String
   }
-  `)
-// ! make sure that the return type is string and when given for params like name and dayofweek it makes them required
 
+  input UserInput{
+    name:String!
+    age:Int!
+    college:String!
+  }
+
+  type Mutation{
+    setMessage(newMessage:String!): String
+    createUser(user:UserInput):User
+  }
+
+  `);
+  // insted of below long params defining we can define a input type
+  //createUser(name:String!,age:Int!,college:String!):User
+// ! make sure that the return type is string and when given for params like name and dayofweek it makes them required
 // define a resolver to define what response will be generated after a Query or Mutation
 const root = {
   // resolver for /greet
@@ -82,6 +98,21 @@ const root = {
     const url= "https://jsonplaceholder.typicode.com/posts";
     const result= await axios.get(url);
     return result.data;
+  },
+
+  // updating resolver for changing the message
+  setMessage:({newMessage})=>{
+    message=newMessage;
+    return message;
+  },
+
+  // for old message
+  message:()=>message,
+
+  createUser:(args)=>{
+    // we created a new user input type object rather than hardcoding into single line while doing mutations.
+    console.log(args);
+    return args.user;
   }
 }
 
