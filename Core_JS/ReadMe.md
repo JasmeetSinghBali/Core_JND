@@ -167,8 +167,12 @@
 ---
 
 ## 4.) Isolated Execution Context for function invocation
-6:10 timestamp function in js
 
+- ****Each time a function invocation happens and a local/nested execution context is formed it will we independent of the other local execution context and global execution context****
+
+- ****In the below code snippet-2 the ouput comes out to be 10,100,1. as for a() a seperate local execution context is made with value of x assigned to 10 in code execution phase, while for invocation b() a seperate local execution context is made where x is assigned value of 100 in its code execution phase and the x inside the global execution context has the value assigned to x as 1.****
+
+                # code snippet-2
                 var x = 1;
                 a();
                 b();
@@ -183,3 +187,147 @@
                   var x = 100;
                   console.log(x);
                 }
+
+                # output
+                10
+                100
+                1
+
+#### Conclusion - Each local execution context created due to function invocation is isolated to other function invocation's local execution context also these local execution context are isolated with respect to the global execution context.****
+
+----
+
+## 5.) Shortest javascript program
+
+- ****Consider a index.js empty file this is the shortest javascript program you can write.****
+
+                    # index.js
+
+                    // empty file
+
+- ****Even though the file is empty on running the code their will be a global execution context created in the memory creation phase along with window object and this keyword.****
+
+### Window object?
+
+- ****A global object created by javascript engine along with global exeution context and this keyword ,  t anything can be accesed via window object.****
+
+### this keyword?
+
+- ****At the global level this keyword points to the global object i.e window object.****
+
+                  # at global level like in console in browser
+                  input: this === window
+                  output: true
+----
+
+### 6.) Global Space , window and this keyword relation->
+****Any piece of code that is written inside the main index.js file with the condition that piece of code should not be inside of any function is said to be in global space.****
+
+                    # code snippet-3
+                    var a = 10;
+                    function b(){
+                      var b = 100;
+                    }
+
+                    # a is in global space
+                    # b is not in global space
+                    # function b() is in global space
+
+****In the code snippet-3 the variable a and function b are inside global space however the variable b is not in global space rather it is in the local space of the function b****
+
+****Whenever we declare a global space variable or function they get attached to the global window object****
+
+                  # accessing global space variable or functions
+                  # for code snippet-3
+                  console.log(window.a); //10
+                  console.log(a); //10
+                  console.log(this.a); //10
+                  console.log(b); // undefined error
+
+****Even when we do not mention window the js engine will assume that we are reffering to the global space variable or function****
+
+-----
+
+## 7.) Undefined vs Not Defined
+
+- ****Whenever we define a variable then the execution context in the first phase i.e memory allocation phase will provide a placeholder named as undefined to that variable****
+
+ - ****Not defined is error thrown out by the JS Engine when we are trying to access any variable that has not been assigned any memory by the execution context****
+
+                      # code snippet-4
+                      console.log(a); // undefined (for the memory allocation phase)
+                      var a = 7;
+
+                      console.log(x); // not defined
+                      console.log(a); // 7 (after code execution phase)
+
+#### Important Conclusions/Takeaways
+
+- ****for the code snippet-4 the line console.log(a); represents hoisting in javascript that means accessing variable before they are defined, and the reason  why a hoisted variable gives undefined as output is because of the execution context memory allocation phase as every javascript program on execution will create a memory even before the actual execution of the javascript code happens refer the Execution Context portion.****
+
+- ****An Interesting thing to note is that the state of the variable changes from undefined to not undefined if we have initialized some value to it or provided some value to it in later part of the code****
+
+                      # code snippet-5
+                      var a;
+                      console.log(a); //undefined
+                      a=10;
+
+                      if(a===undefined){
+                        consle.log("a is undefined");
+                      }
+                      else{
+                        console.log("a is not undefined");
+                      }
+
+                      # output:
+
+                      undefined
+                      // for uninitialized variable a
+
+                      a is not undefined
+                      // after initializing variable a as 10
+
+---
+
+## 8.) Loosely typed or Weakly typed(flexible like python) JS language Nature
+
+- ****you can put anything and everything at any point of time for a variable****
+
+                    # code snippet -6
+                    var a;
+                    console.log(a);
+                    a=10;
+                    console.log(a);
+                    a="hello world";
+                    console.log(a);
+
+                    # output
+                    undefined
+                    10
+                    hello world
+
+- ****Bad Practice of assigning a variable as undefined as it can lead to unexpected code behavior.****
+
+                    # code snippet -7
+                    var a = undefined;
+                    console.log(a);
+                    # output
+                    undefined
+
+----
+
+## 9.) Scope Chain , Scope and lexical environment
+2:05 timestamp
+
+                    # code -snippet - 8
+                    function a(){
+                      console.log(b);
+                    }
+                    var b = 10;
+                    a();
+
+                    # output
+                    10
+
+- ****though the function a() has its own local execution context
+it can still access the global scope variable b inside of it****
