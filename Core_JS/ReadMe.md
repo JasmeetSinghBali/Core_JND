@@ -317,7 +317,8 @@
 ----
 
 ## 9.) Scope Chain , Scope and lexical environment
-2:05 timestamp
+
+#### Scope is the area where a variable or function can be accessed.
 
                     # code -snippet - 8
                     function a(){
@@ -330,4 +331,93 @@
                     10
 
 - ****though the function a() has its own local execution context
-it can still access the global scope variable b inside of it****
+it can still access the global scope variable b inside of it.****
+
+                    # code snippet -9
+                    function a(){
+                      c();
+                      function c(){
+                        console.log(b)
+                      }
+                    }
+                    var b = 10
+                    a();
+
+                    # output
+                    10
+
+- ****So a global scope variable can be accessed by a nested function also as shown in code snippet-9****
+
+                    # code snippet -10
+                    function a(){
+                      var b= 10;
+                      c();
+                      function c(){
+
+                      }
+                    }
+                    a();
+                    console.log(b);
+
+                    # output
+                    b is not Not defined
+
+- ****Local scoped variables cannot be accesed inside global scope however global scoped variables can be accesed within local scope anywhere even in nested functions.****
+
+### Scope and lexical environment
+
+                        # for code snippet -10
+                        # Call Stack
+
+                        |    LEC for c()                             |
+                        |   Memory |  Code                           |
+                        |          |                                 |
+                        |          |                                 |
+                        |          |                                 |
+                        |          |                                 |
+                        | $lexical env of c()--> lexical env of   a()                                          |
+                        |----------------------------------------
+                        |    LEC for a()                             |
+                        |   Memory |  Code                           |
+                        |  b:10    |                                 |
+                        |  c:{...} |                                 |
+                        | $lexical env of a() -->lexical env of GEC  |                                            |
+                        |------------------------------------------- |                                            |
+                        |      GEC                                   |
+                        |                                            |
+                        |   Memory |  Code                           |
+                        |  a:{...} |                                 |
+                        |          |                                 |
+                        | $lexical env of GEC --->null               |
+                        |------------------------------------------- |          
+
+- ****IMPORTANT- Each Time a execution context is created a lexical environment is created this lexical environment comprise of local memory+ its parent lexical environment****
+
+- ****Lexical means a heirarchy i.e a sequence.****
+
+                      lexical env of z = local memory of z + lexical env of z's parent
+
+- ****IMPORTANT - For the code snippet-10 we can say that  function c() is sitting in the lexical scope of a function of a() i.e c() is lexically inside a(),while a() is lexically inside global scope.****
+
+- ****So for the LEC c() its lexical env is pointing i.e reffering to the lexical env of a(), so c() will have access to lexical env of a() also.****
+
+### Scope Chain
+
+- ****When inside of local execution context for a nested function and we are trying to access a variable that is defined inside the global scope then first the search begins inside of the local env and memory if not found it goes to the parent lexical env and searches their and so on until it either finds that variable or reaches to lexical env as null(parent of global execution context) this process or way of accessing/finding variable or function is called Scope Chain.****
+
+## Conclusion -> The Combination of lexical env. and parent references constitute for Scope Chain Mechanism which in fact  is used in accessing variable and functions in different scopes throughout the javascript program.
+
+## Key Takeaways
+
+****say z is a function invocation then a execution context is created with memory and code along with this a lexical env is also created for z.****
+
+****Lexical env. of z = local memory of z + lexical env. of z's parent****
+
+****Scope Chain Mechanism = lexical env. + references to  parent****
+
+****Scope chain mechanism is used to understand where a particular variable or function is accessible.****
+
+
+-----
+
+## 10.) Let & Const in JS , What is Temporal Dead Zone?
