@@ -137,11 +137,14 @@
 // =================================================
 // scope and refernece types dealing with same reference/address
 // any change made to one reffernce is reflected to other refferenced types variables
-let obj  = {value:10};
+// let obj  = {value:10};
+//
+// function increase(obj){
+//   obj.value++;
+//   console.log(obj); //11
+// }
+// increase(obj);
+// console.log(obj); //11
 
-function increase(obj){
-  obj.value++;
-  console.log(obj); //11
-}
-increase(obj);
-console.log(obj); //11
+// ===================================================
+// Adding & Removing Properties

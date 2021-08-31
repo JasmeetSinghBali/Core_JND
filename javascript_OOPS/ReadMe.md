@@ -39,6 +39,3 @@
 
 # Some Fun Facts->
 - [x] Functions and arrays are objects in javascript
-
-https://www.youtube.com/watch?v=PFmuCDHHpwk
-37 timestamp

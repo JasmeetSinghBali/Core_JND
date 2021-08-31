@@ -421,3 +421,229 @@ it can still access the global scope variable b inside of it.****
 -----
 
 ## 10.) Let & Const in JS , What is Temporal Dead Zone?
+
+- ****Let and const declarations are also hoisted but they are in the temporal deadzone unlike var.****
+
+                    # code snippet-11
+                    console.log(b); // undefined
+                    console.log(a); // cannot access a before initialization as it is in temporal dead zone
+                    let a = 10;
+                    console.log(a); //10
+                    var b = 100;
+
+- ****What is happening behind the scenes why we are not able to hoist the let variable.****
+
+- ****the let and const are in temporal dead zone****
+
+> ****Temporal dead zone means the time between the let or const is hoisted and the time it was initialized with a value****
+
+                  # for the code-snippet 11
+                  # a is assigned a seperate memory space with placeholder as undefined
+
+                  console.log(a)
+                  # when the above line runs then
+                  Script(seperate memory space assigned to a)
+                  a:undefined
+                  # also the temporal dead zone starts from line console.log(a)
+                  let a = 10;
+                  # the temporal dead zone ends when we initialized value of a as 10
+
+> ****IMPORTANT Whenever a variable that is currently in temporal dead zone is accessed it results in referrence error****
+
+> ****Conclusion So the variables defined by let and const can only be accesed after the temporal dead zone is over i.e when that let or const variable is initialized****
+
+
+#### Scope of var VS let/const
+
+> ****the var keyword variables are attached to window object i.e in global space****
+> ****while the let and const are attached to seperate memory space and cannot be accesed via window object or in global scope****
+
+
+#### Why to use let/const vs var
+
+- [x] ****Strict behaviour of let and const do not allow duplicate name declarations.****
+- [x] ****let/const declared variables cannot be accessed globally, hence supporting Isolation of certain parts of code to other parts of code****
+- [x] ****using let/const make the code output more predictable then the  variables declared via var****
+
+                  let a =100;
+
+                  var a=100; // Syntaxerror a is already declared
+
+                  var b=10;
+                  var b=1; //no error
+
+- [x] ****const has one more level strictness than let, we have to initialize const variable a the time of declaration.****
+
+                  const a; //Syntaxerror initilize missing while declaration
+
+                  const b =100;
+                  b=10; // Typeerror const cannot be assigned new values in later stage
+
+#### How to avoid temporal dead Zone
+
+> ****Conclusion-> Minimize the temporal dead zone window to 0 by declaring and initializin the let/const variable at the beginning of the program as much as possible****
+
+-----
+
+## 11.) BLOCK,SCOPE & Shadowing in Javascript
+
+### Block?
+                      # an empty block
+                      {
+                        //Compound statements
+                      }
+> ****IMPORTANT Block combines multiple statements as a single unit so as javascript can execute multiple lines of code as multiple lines inside block act as single unit****
+
+                      # no use of block single line possible only
+                      if(true) true;
+
+                      # with use of block
+                      # multiple lines can be written as a single unit where javascript expects only single statement
+                      if(true){
+                        const a =100; // line1
+                        console.log(100); //line 2
+                      }
+
+### Block Scope?
+
+                    {
+                      // variables or
+                      //functions that can be accessed inside this block
+                      // is called BLOCK SCOPE
+                    }
+
+- ****When we run the  code snippet-12 a Block scope is created where  b and c are present  while a is insidel global scope even if it is declared inside a block****
+
+                    # code snippet -12
+                    {
+                      var a = 10;
+                      let b = 100;
+                      const c = 1000;
+                    }
+                    console.log(a); // 10
+                    console.log(b); //  referrence error
+                    console.log(c); //  referrence error
+                    # Inside debugger
+
+                    # Block
+                    b: undefined
+                    c: undefined
+
+                    # Global
+                    a: undefined
+
+
+
+> ****that is the reason let and const are in block scope i.e seperate scope, and we can only access a in global scope while b and c in the block scope.****
+
+### Shadowing in javascript
+
+****The variable declared inside the block takes preference i.e shadows the same named variable declared outside the block****
+
+                  var a= 100;
+                  {
+                    var a=10;
+                    console.log(a);
+
+                  }
+
+                  # output
+                  10
+
+****In addition to shadowing the var keyword variable will modify the same name variable value declared in the global scope****
+                  var a = 100;
+                  {
+                    var a=10
+                    console.log(a);
+                  }
+                  console.log(a)
+
+                  # output
+                  10
+                  10
+
+### Case : Let keyword
+
+****Shadowing happens in let also****
+
+****However In contrast to var the let keyword declared variable do not alter the value of the same let keyword variable in the global scope****
+
+                  let b = 100;
+                  {
+                    let b = 20;
+                    console.log(b);
+                  }
+                  console.log(b);
+
+                  # output
+                  20
+                  100
+
+                  # debugger
+
+                  # Script
+                  b: 100
+
+                  # Block
+                  b: 20
+
+                  # Global
+
+> ****IMPORTANT - Shadowing works the similar way for the function scope also****
+
+                  const c=100;
+                  function x(){
+                    const c = 30;
+                    console.log(c);
+                  }
+                  x();
+                  console.log(c);
+
+                  # output
+                  30
+                  100
+
+### I'llegal Shadowing
+
+                  # illegal shadowing
+                  let a= 20;
+                  {
+                    var a =10;
+                  }
+
+                  # output
+                  SyntaxError a has already been declared
+
+                  # legal shadowing
+                  # case-1
+                  let b =20;
+                  {
+                    let b=2;
+                  }
+                  # output
+                  No error runs perfectly
+
+                  # case-2
+                  var c =20;
+                  {
+                    let c=2;
+                  }
+                  # output
+                  No error runs perfectly
+
+> ****IMPORTANT From the above code snippet the point to note is that shadowing can only happen if a particular variable do not cross the boundry for the case of illegal shadowing declaring a var a inside a block will give error as the var keyword will be in the global scope and not in the block scope****
+
+
+                  let a= 20;
+                  function x(){
+                    var a =10;
+                  }
+
+                  # output
+                  No error perfectly runs
+
+> ****IMPORTANT the arrow function behaves the same as normal function when Block Scope rules & shadowing  are considered****
+
+---
+
+## 12.) Closures in javascript
