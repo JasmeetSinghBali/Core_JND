@@ -148,3 +148,169 @@
 
 // ===================================================
 // Adding & Removing Properties
+// object in javascript are dynamic
+// function Circle(radius){
+//   this.radius=radius;
+//   this.draw = ()=>{
+//     console.log('draw');
+//   }
+// }
+//
+// const objCircle = new Circle(10);
+
+// add a prop named location = {x:1,y:1} to objCircle object
+// objCircle.location={x:1,y:1};
+// console.log(objCircle);// will have a location property now
+
+// 2nd way to add a new prop to object
+// objCircle['shade']= {back:"yellow",front:"red"};
+// console.log(objCircle);
+// now the objCircle will have a prop named shade
+
+
+// deleting a specific property say we want to remove certain details when responding to client like users credit card info
+// delete objCircle.location;// or objCircle['location']
+// deletes the location prop for the objCircle
+
+
+//========================================
+// Enumerating Properties
+// function Circle(radius){
+//   this.radius=radius;
+//   this.draw = ()=>{
+//     console.log('draw');
+//   }
+// }
+//
+// const objCircle = new Circle(10);
+
+// iterating over the props & method of the object
+// for (let key in objCircle){
+//   console.log(key);
+// }
+// output
+//radius
+//draw
+
+// to acess the value of props use bracket notations
+// for(let j in objCircle){
+//   console.log(j,objCircle[j]);
+// }
+// output
+//radius 10
+//draw f(){.....}
+
+// to only get the properties not the methods
+// for (let i in objCircle){
+//   if(typeof objCircle[i]!=='function'){
+//     console.log(i,objCircle[i])
+//   }
+// }
+
+//output
+// radius 10
+
+// to get all the keys in object
+// const keys = Object.keys(objCircle);
+// console.log(keys);
+
+// to check wheather a prop is in object or not
+// if('radius' in objCircle){
+//   console.log('Circle object has radius property present in it.');
+// }
+
+
+// ==================================
+// Abstraction
+
+// without abstraction
+// function Circle(radius){
+//   this.radius=radius;
+//   this.defaultLocation = {x:0,y:0};
+//   this.computeOptimumLocation = function(factor){
+//     //..
+//   }
+//   this.draw = ()=>{
+//     this.computeOptimumLocation(0.1);
+//     console.log('draw');
+//   }
+// }
+//
+// const objCircle = new Circle(10);
+// objCircle.draw()
+
+
+// with private props(usin let) and methods abstraction
+// and closure
+// function Circle(radius){
+//
+//   this.radius=radius;
+//   // private prop and method with let
+//   let defaultLocation = {x:0,y:0};// cannot be accesed with the object
+//   let computeOptimumLocation = function(factor){
+//     //..
+//   }
+//   this.draw = ()=>{
+//     // private props & method
+//     // accesible inside of draw due to closure
+//     computeOptimumLocation(0.1);
+//     console.log(defaultLocation);
+//     // object props accesed via this
+//     console.log(this.radius);
+//     console.log('draw');
+//   }
+// }
+//
+// const objCircle = new Circle(10);
+// console.log(objCircle);// radius & draw only accesible via this object now as the defaultLocation & computeOptimumLocation are private
+
+
+//=======================================
+//getter and setters to acess private methods or props
+// function Circle(radius){
+//
+//   this.radius=radius;
+//
+//   let defaultLocation = {x:0,y:0};
+//
+//   this.getDefaultLocation=()=>{
+//     return defaultLocation;// can be accesed due to closure
+//   }
+//
+//   this.draw = ()=>{
+//     console.log('draw');
+//   }
+// }
+//
+// const objCircle = new Circle(10);
+// objCircle.getDefaultLocation(); // {x:0,y:0}
+
+//===================================
+// IMPORTANT
+// 2nd way to define getter/setter function via Object.defineProperty(this,'PropNameYouWant',{ get:()=>{return something}})
+function Circle(radius){
+
+  this.radius=radius;
+
+  let defaultLocation = {x:0,y:0};
+
+  this.draw = ()=>{
+    console.log('draw');
+  }
+
+  Object.defineProperty(this,'defaultLocation',{
+    get: ()=>{
+      return defaultLocation;//accesible due to closure
+    },
+    set: (value)=>{
+      if(!value.x || !value.y){
+        throw new Error('Invalid location');
+      }
+      defaultLocation = value;
+    }
+  });
+}
+
+const objCircle = new Circle(10);
+objCircle.defaultLocation(); // {x:0,y:0}
+objCircle.defaultLocation = 1;// error due to the if condition in the set method

@@ -1,6 +1,10 @@
 # OOPS in javascript
 
-> for quick revision -> https://medium.com/@luke_smaki/javascript-es6-classes-8a34b0a6720a
+> ****for quick revision -> https://medium.com/@luke_smaki/javascript-es6-classes-8a34b0a6720a****
+
+> ****refer stopwatch.js for OOPS implementations****
+
+> ****refer index.js for understanding OOPS concept in depth****
 
 ## 4 pillars
 
@@ -39,3 +43,14 @@
 
 # Some Fun Facts->
 - [x] Functions and arrays are objects in javascript
+- [x] objects in javascript are dynamic.
+- [x] New props can be added or removed a/c to the requirement for objects in javascript.
+- [x] Unlike c# or java every time new property/method we want to add we need to first make changes in the class defination however in javascript we can dynamically add prop/methods to the objects in javascript.
+
+- [x] A realtime use case of adding props would be accepting some user credentials from client side and then adding a particular token associated to that user as prop.
+
+- [x] Closure in js helps the inner functions to access the variables and methods declared in the parent scope and helps us to achieve abstraction or creating private props and methods.
+
+- [x] Note closures are permanent i.e it stays always while scope dies after the scope of that block or function ends.
+
+- [x] Object.defineProperty can be used to define getter and setters for private/local scoped variables and methods.
