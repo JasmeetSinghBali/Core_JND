@@ -2,7 +2,7 @@
 
 > ## Stacks (DS) refer stack_js_oops
 
-- **FIFO -> first in first out**
+- **LIFO -> first in first out**
 - Always pop's the most recently pushed element in the stack
 - **example browser back button that stores the pages in FIFO fashion when users hit the back button the most recently visited page with respect to current page is displayed.**
 
@@ -48,6 +48,43 @@
 
 -----
 
-> ## Queue (DS) 1925
+> ## Queue (DS) 
+
+- **FIFO Fashion**
+- can be implemented by javascript array 
+- task scheduling
+
+> ## Priority Queues
+
+- **task/process scheduling**
+- **the elements with higher priority(lowest number) are send to the front of the queue so that when dequeue operation is performed they are the first to removed and can be executed first like a high priority task/process.**
+
+---
+
+> Binary Search Tree(BST) O(logn)
+
+- Each Node can have exactly two branches left and right i.e two childs for each node possible.
+
+- For Binary tree, the left child value must be less than or equal to the root node while the value of right child must be greater than or equal to the right node.
+
+- Binary search tree is based on the principle of binary search hence insertion,loopup and deletion takes about O(logn) where n is the total number of inputs.
 
 
+- **addition of new node happens only at the leaf nodes, so keep going for the terminals via recursion until the left/right child points to refference null**
+
+- **while removing the node from BST remember to replace that refference of deleted node with the node that is the to the left wrt  right child of the deleted node.**
+
+**example node to delete 3 so 3 replaced by the left of right child of 3 3<->4 and the tree is balanced.**
+
+
+                              8
+                3                         14
+        1             6
+                  4         7
+
+                  # After deletion of 3
+
+                              8
+                4                         14
+        1             6
+                           7
