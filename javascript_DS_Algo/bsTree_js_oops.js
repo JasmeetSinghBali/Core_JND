@@ -1,4 +1,4 @@
-// Binary Search Tree
+// Binary Search Tree O(logn) Ins,Del,Ser
 
 class Node{
     constructor(data,left=null,right=null){
@@ -158,7 +158,131 @@ class BST{
         // first invocation
         this.root = removeNode(this.root,data);
 
+    };
+    isBalanced(){
+        return (this.findMinHeight() >= this.findMaxHeight()-1);
+        // min=1,max=3 so 1>=3-1 false unbalanced
+        // min=2,max=3 so 2>=3-1 true balanced
+    };
+
+    // the idea is to return min of left and right values each time a subtree is traversed
+    findMinHeight(node=this.root){
+        if(node === null){
+            // Empty BST
+            // or the case when it reaches to leaf node (having no childrens)
+            return -1;
+        };
+        
+        let left = this.findMinHeight(node.left);    
+        let right = this.findMinHeight(node.right);
+    
+        if (left < right) {
+            return left + 1;
+        } else {
+            return right + 1;
+        };
+
+    };
+
+    // the idea is to return min of left and right values each time a subtree is traversed
+    findMaxHeight(node=this.root){
+        if(node === null){
+            // Empty BST
+            // or the case when it reaches to leaf node (having no childrens)
+            return -1;
+        };
+        let left = this.findMaxHeight(node.left);// to traverse left subtree
+        let right = this.findMaxHeight(node.right);// to traverse right subtree
+        if(left > right){
+            left=left+1;
+        }
+        else{
+            right=right+1;
+        };
+
+    };
+
+    inOrder(){
+        if(this.root === null){
+            // empty BST
+            return null
+        }else{
+            let result = new Array();
+            function traverseInOrder(node){
+                // short circuit evaluation true && then execute
+                // if(node.left) {traverseInOrder(node.left)}
+                node.left && traverseInOrder(node.left);
+                result.push(node.data); 
+                node.right && traverseInOrder(node.right);
+            }
+            traverseInOrder(this.root);
+            return result;
+        };
+
+    };
+
+    preOrder(){
+        if(this.root === null){
+            // empty BST
+            return null
+        }else{
+            let result = new Array();
+            function traversePreOrder(node){
+                // short circuit evaluation true && then execute
+                // if(node.left) {traverseInOrder(node.left)}
+                result.push(node.data);
+                node.left && traversePreOrder(node.left); 
+                node.right && traversePreOrder(node.right);
+            }
+            traversePreOrder(this.root);
+            return result;
+        };
+
+    };
+
+    postOrder(){
+        if(this.root === null){
+            // empty BST
+            return null
+        }else{
+            let result = new Array();
+            function traversePostOrder(node){
+                // short circuit evaluation true && then execute
+                // if(node.left) {traverseInOrder(node.left)}
+                node.left && traversePostOrder(node.left); 
+                node.right && traversePostOrder(node.right);
+                result.push(node.data);
+            }
+            traversePostOrder(this.root);
+            return result;
+        };
+
+    };
+
+    // queue used for levelOrder Traversing
+    levelOrder(){
+        let result = [];
+        let Q = []; //queue
+        if(this.root!==null){
+            Q.push(this.root);
+            while(Q.length>0){
+                let node = Q.shift();// remove element from front of queue
+                result.push(node.data);
+                if(node.left!==null){
+                    Q.push(node.left);//add left child of same level to rear
+                }
+                if(node.right!==null){
+                    Q.push(node.right);
+                }
+            }
+            return result;
+        }else{
+            // as the BST is empty
+            return null
+        }
+        
     }
+    
 }
 
 // -----Quokka test 1 test case failing to reconsider-----
@@ -177,9 +301,20 @@ class BST{
 // console.log(bst.findMin());
 // console.log(bst.findMax());
 // console.log(bst.root);
+// bst.add(8);
 //                 4
 //        2               6
-//   1        3        5
+//   1        3        5      8
+
+// console.log(bst.inOrder());
+// console.log(bst.preOrder());
+// console.log(bst.postOrder());
+// console.log(bst.levelOrder());
+// console.log(bst.findMinHeight());
+// console.log(bst.findMaxHeight());
+// console.log(bst.isBalanced());
+
+// -----Not Working for this case -----
 // bst.remove(2);
 // console.log(bst.root)
 //                 4

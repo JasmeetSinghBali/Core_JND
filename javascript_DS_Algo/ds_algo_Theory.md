@@ -88,3 +88,33 @@
                 4                         14
         1             6
                            7
+
+## Binary Search Tree Traversal & Height
+
+- **Height of the node in BST is the distance between the root node to any node that has either 1 children or no childrens**
+
+                # BST-1
+                        9
+                4             17
+           3        6               22
+                 5     7         20
+
+                 # minHeight:1 from 9 to 17
+                 # maxHeight:3 from 9 to 5 or 7 or 20
+
+- **A BST is said to be balaced when the difference between the max height and the min height is either 0 or 1, hence for ablove BST it is unbalanced as 3-1 =2**
+
+- **Searching in a balanced BST is more efficient than unbalanaced tree It isalways a good approach to balance the BST for efficient searching**
+
+- **Tree traversals can be inOrder,preOrder,postOrder,levelOrder**
+
+- **level order explores all the nodes at a level before continuing to the next level**
+
+### For BST -1
+- **inOrder(LNR) = 3,4,5,6,7,9,17,20,22**
+- **preOrder(NLR) = 9,4,3,6,5,7,17,22,20**
+- **postOrder(LRN) = 3,5,7,6,4,20,22,17,9**
+- **levelOrder(Breadth first search) = 9,4,17,3,6,22,5,7,20**
+ 
+
+        
