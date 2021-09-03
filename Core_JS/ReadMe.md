@@ -1,5 +1,7 @@
 # Core Javascript
 
+By- Jasmeet Singh Bali
+
 ## 1.) Execution Context
 
 - [x] Everything in Javascript happens inside Execution Context(a big box with two main components).
@@ -647,3 +649,223 @@ it can still access the global scope variable b inside of it.****
 ---
 
 ## 12.) Closures in javascript
+
+
+- **Function bind together with its lexical environment/scope(its local+parent scope)**
+
+          function x(){
+            var a = 7;
+            function y(){
+              console.log(a)
+            }
+            y(); 
+          }
+          x();
+
+          # output
+          7
+
+          # debugger for line 
+          # console.log(a) 
+          Closure(x)
+          a:7
+
+- **returning a function inside function**
+
+          function x(){
+            var a = 7;
+            function y(){
+              console.log(a)
+            }
+            return y; 
+          }
+          let res = x();
+          console.log(res);
+
+          # output
+          F:y(){
+            console.log(a);
+          }
+
+- **though after returning from x() x is completely vannished from call stack, still y() will remember the variables and functions associated to it in closure**
+
+        # the inner function remembers the binding variables and the functions due to closure and even after the function that calls inner function gets vanished from call stack the inner fnction will remember the refferences to the outer function.
+
+        function x(){
+            var a = 7;
+            function y(){            
+              console.log(a)     
+            }
+            return y; 
+          }
+          let res = x();
+          res();
+
+          OR
+
+          function x(){
+            var a = 7;
+            return function y(){            
+              console.log(a);     
+            } 
+          }
+          let res = x();
+          res();
+
+          # output
+          7
+
+- **so whenever the inner function is returned within the other function then it is actually returning the closure of inner function+its lexical scope and it remembers the refferences to its parent**
+
+        
+- **Some output prediction questions on closures**
+
+          function x(){
+            var a = 7;
+            function y(){            
+              console.log(a);     
+            }
+            a = 100;
+            return y; 
+          }
+          let res = x();
+          res();
+
+          # output
+          100
+
+- **remember the inner function on returning also returns the refference(original address) of the parent scope/lexical scope variables, and changing the value will direclty change that parent scoped variable also as shown above code**
+
+- **A multilevel closure**
+
+          function z(){
+            var b = 900;  
+            function x(){
+              var a = 7;            
+              function y(){
+                console.log(a,b);
+              }     
+            y();
+            }
+            x();
+          }
+          z();
+
+          # debugger at console.log(a,b)
+          Closure (x)
+          a:7
+          Closure (z)
+          b:900
+
+
+## Uses of Closures
+- Module Design Pattern
+- Currying
+- Functions like once
+- memoize
+- maintaining state in async world
+- setTimeouts
+- Iterators
+
+---
+
+## setTimeout + Closures Interview Questions
+
+
+            function x(){
+              var i = 1;
+              setTimeout(function(){
+                console.log(i);
+              },3000)
+            }
+            x();
+
+            # output
+            # prints 1 after 3 second from 
+            # the time the x is called
+            1
+
+            function x(){
+            var i = 1;
+            setTimeout(function(){
+              console.log(i);
+            },3000);
+            console.log("olaaa");
+          }
+          x();
+
+          # output
+          olaaa
+          #after 3 seconds
+          1
+
+- **Remember tide,time and javascript dont wait for anyone**
+
+- **Tricky question problem is to print number from 1 to 5 like 1 should print after 1 second 2 should print in 2 second and so on**
+
+            function x(){
+            for(var i=1;i<=5;i++){
+              setTimeout(function(){
+              console.log(i);
+            },i * 1000);
+            }
+            console.log("olaaa");
+          }
+          x();
+
+
+
+          # output
+          olaaa
+          6
+          6
+          6
+          6
+          6
+
+- **the above code gives such output due to closure since the setTimeout callback is reffering to the memory space of i by the time the console.log(i) is executed the loop has already incremented to 6 and thus each time the console.log(i) now executes it prints 6.**
+
+- **to solve this problem we can use let instead of var, as let has block scope and each time loop runs i is a new variable altogether i.e new copy of i is made i.e different memory location is used for each changed value of i when using let**
+
+          function x(){
+            for(let i=1; i <= 5; i++){
+              setTimeout(function(){
+              console.log(i);
+            },i * 1000);
+        }
+            console.log("olaaa");
+        }
+        x();
+
+        # output
+        olaaa
+        1
+        2
+        3
+        4
+        5
+
+- **IMPORTANT Solution without using let via help of closures i.e making a function and putting the setTimeout inside of it so that each time the innerfunction is called it creates new memeory location for i**
+
+          function x(){
+          for(var i=1; i <= 5; i++){
+            # making a explicit closure for setTimeout
+            function close(i){
+              setTimeout(function(){
+                  console.log(i);
+                },i * 1000);
+            }
+          # we are calling the close()  function with new copy of i  different memory location
+          close(i);
+          }
+          console.log("olaaa");
+      }
+      x();
+
+          # output
+          olaaa
+          1
+          2
+          3
+          4
+          5
