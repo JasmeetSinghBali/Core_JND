@@ -553,6 +553,7 @@ it can still access the global scope variable b inside of it.****
                   10
 
 ****In addition to shadowing the var keyword variable will modify the same name variable value declared in the global scope****
+
                   var a = 100;
                   {
                     var a=10
@@ -869,3 +870,229 @@ it can still access the global scope variable b inside of it.****
           3
           4
           5
+
+---
+
+## 13.) First Class Functions, Anonymous Function
+
+
+> function statement (as simple function defination) aka function declaration
+
+            function a(){
+              console.log("a was called")
+            }
+
+> function expression (assigning function to variable so that function act as value for a variable)
+
+            var b = function {
+              console.log("b called")
+            }
+
+> difference in function statement & function expression
+
+- **hoisting**
+
+            a();
+            b();
+
+            function a(){
+              console.log("a was called")
+            }
+
+            var b = function {
+              console.log("b called")
+            }
+
+            # output
+            a is called
+            b is not a function
+
+- **the function statement during memory creation phase get the memory allocated while for the case of function expression accessing b before it is defined causes error as b is a variable not a function**
+
+> Anonymous Function
+
+- **No identity of its own i.e no name**
+- **anonymous function are used in the place where function act as values for variables i.e function expression**
+
+            function(){
+              
+            }
+            # output
+            syntax error function statements requires function name
+
+            # anonymous function as function expression
+            var b = ()=>{
+              console.log("b is called")
+            }
+
+> difference in Parameter & Arguments
+
+- **Parameters are labels,identifiers mentioned at the time of function declaration**
+
+- **the paramaeters are local scoped wrt to the function it belongs to**
+
+- **arguments are given at the time of function invocation/calling**
+
+            function fun(params1,params2){
+              // do something
+            }
+
+            fun(arg1,arg2);
+
+> First Class Function
+
+- **the ability of function to be used function as arguments , returned as values from function**
+
+            function fun(){
+              // do something
+            }
+
+            var xyz=()=>{
+              //do somehting
+              console.log('xyz is called')
+            }
+            // first class functions
+            fun(xyz);
+
+            # return function within function
+
+            var b=(param1)=>{
+              //do somehting
+              return function xyz(){
+
+              }
+            }
+            
+            console.log(b());
+
+            # output
+            f xyz(){
+
+            }
+            
+> functions are first class citizen or functions are first class i.e the ability of functions to be used as value,passed inside another function as argument,to be returned function withing function make them first class citizen in javascript.
+
+---
+
+
+## 14.) Callback Functions in Javascript & Event Listeners for finally understanding Event loop
+
+
+> Callback Functions in Javascript
+
+- **as we know functions are first class citizen in addition to that when we pass a function as value/argument/parameter to another function then it act as callback function.**
+
+
+> **javascript is a synchronous blocking & single threaded language but with help of callbacks async operations and architecture can be implemented.**
+
+            # example of callback function
+
+            function x(y){
+
+            }
+            x(function y (){
+
+            })
+
+            # here function y is a callback function
+
+  
+- **setTimeout takes a callback function it is passed to setTimeout and is executed sometime else in the program**
+
+- **javascript wont wait for 5000 seconds instead it will execute the x and y functions and after that it will print timer when 5 seconds have been achieved**
+
+- **javascript and time wont wait for anyone**
+
+            setTimeout(function(){
+              console.log("timer");
+            },5000);
+
+            function x(y){
+              console.log("x");
+              y();
+            }
+
+            # first class function y passed as argument while x invocation
+            x(function y(){
+              console.log("y");
+            });
+
+            # Output
+            x
+            y
+            # after 5 seconds
+            timer
+
+> Blocking the main thread
+
+- **everything in javascript is executed via call stack, every code executed is executed from call stack hence call stack represent the execution thread for javascript program**
+
+- **so if any operation blocks the call stack then it is known as blocking the main thread**
+
+- **since only single call stack is their so best practices i.e use async and await for the operations that takes time to prevent them from blocking the call stack i.e main thread**
+
+> Creating an event listener in javascript via callback function
+
+- **example a button on click event when triggered will call the callback function.
+          
+          # html
+          <button id="clickMe">Click me</button>
+
+          # javascript
+          document.getElementById('clickMe').addEventListener("click",xyz()=>{
+            console.log("button was clicked");
+          });
+
+          # debugger
+          # every time button is clicked on html page xyz() is pushed into the call stack
+
+          # call stack
+
+          |          |
+          |          |
+          |          |
+          |          |
+          | xyz()    |
+          |----------|
+
+- **suppose we want to have a counter for how many times the button was clicked the best practice is to use a variable and that must be in closure with the eventlistener callback**
+
+             function attachEventListener(){
+               let counter = 0;
+               document.getElementById('clickMe').addEventListener("click",xyz()=>{
+               console.log("button was clicked",++counter);
+              });
+             } 
+
+             attachEventListener();
+
+             # now the callback xyz() forms a closure with attachEventListener hence is ablte to access counter.
+
+             # output
+             button was clicked 1
+             button was clicked 2
+             button was clicked 3
+
+             # call stack
+              
+              |          |
+              |          |
+              |          |
+              |          |
+              | xyz()    |
+              |----------|
+
+            # see event listners handlers you will observe closures their in dev tools
+
+> Garbage collection and remove event listeners
+
+- **why it is essential to remove eventListeners whenever eventListener is created it forms a closure and it effects memory space and even when call stack is empty still the functions and variables in the closure are occupying space hence occupying space**
+
+- **too many eventListeners can cause slowing down of the applications**
+
+- **so removing eventListeners help in garbage collection i.e freeing up the memory space**
+
+---
+
+## IMPORTANT 15.) Asynchronous javascript and Event Loops
+
