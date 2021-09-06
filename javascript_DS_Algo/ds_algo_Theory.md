@@ -2,9 +2,9 @@
 
 > ## Stacks (DS) refer stack_js_oops
 
-- **LIFO -> first in first out**
+- **LIFO -> Last in first out**
 - Always pop's the most recently pushed element in the stack
-- **example browser back button that stores the pages in FIFO fashion when users hit the back button the most recently visited page with respect to current page is displayed.**
+- **example browser back button that stores the pages in LIFO fashion when users hit the back button the most recently visited page with respect to current page is displayed.**
 
               |  www.spotify.com |
               |  www.twitter.com |
@@ -61,7 +61,7 @@
 
 ---
 
-> Binary Search Tree(BST) O(logn)
+> Binary Search Tree(BST) O(logn) Database Indexing
 
 - Each Node can have exactly two branches left and right i.e two childs for each node possible.
 
@@ -116,5 +116,49 @@
 - **postOrder(LRN) = 3,5,7,6,4,20,22,17,9**
 - **levelOrder(Breadth first search) = 9,4,17,3,6,22,5,7,20**
  
+---
 
-        
+> Hash Tables time- O(1) search,insert,delete while space-O(n)
+
+- **hash tables are used to implement associative arrays or mappings of key value pairs**
+
+- **hash tables are used to implement mapped data structure or objects for instance like JSON**
+
+- **hash tables maps strings to numbers the strings are passed from hash function and then mapped to hashes**
+
+      keys         hash function           hashes
+                         
+      John Smith   ->                          02  
+      Lisa Smith   ->                          01
+      Sam Doe      ->                          04
+      Sandra Dee   ->                          02
+
+
+- **the hash functions are consistent for same input key string it outputs the same hash every time via hash function**
+
+- **each key must be mapped to unique hash in above figure John Smith and Lisa Smith are mapped to the same hash this results in collision and then both lisa and john are placed inside the same bucket**
+
+- **the hashed value is used as a index while searching**
+
+- **In most of the languages hash tables are implemented for the case of javascript hash table is used to implement the objects**
+
+- **hashtable can be implemented via nested javascript arrays** 
+
+                hashTable=[
+                        [bucket1],
+                        [bucket2],
+                        [bucket3],
+                        [bucket4]
+                ]
+
+                where bucket1=[key:value],[key:value],[key:value]
+                in case the key is same for some two or more key that somehow results in same index after processing by hashFunction.
+
+                if no collision then each bucket will have nested array with single key value pair entry
+
+                bucket1=[[key1:value1]]
+                bucket2=[[key2:value2]]
+
+---
+
+> Linked List 1:03
