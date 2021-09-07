@@ -1096,3 +1096,245 @@ it can still access the global scope variable b inside of it.****
 
 ## IMPORTANT 15.) Asynchronous javascript and Event Loops
 
+> call stack
+
+- **call stack is present inside the js engine , only the code that goes inside call stack get executed**
+
+
+          function a(){
+            console.log('a');
+          }
+          a();
+          console.log(end)
+          # GEC is first to be created and pushed into call stack
+
+          # for function envocation new execution context is created
+          
+          # call stack
+
+          |         |
+          |         |
+          | LEC a() |
+          | GEC     |
+          |---------|
+
+          # console
+          a
+          #LEC  a() is popped of the call stack
+
+          |         |
+          |         |
+          |         |
+          | GEC     |
+          |---------|
+          
+          # GEC also pops and finally the program finishes
+
+- **call stack dont waits it just executes the top element in stack and then pops it repeats this procedure until it is empty**
+
+
+> async or task that are to be intentionally delayed
+
+- **the call stack cannot push any script that has mentioned to run it after some seconds as call stack has no timer**
+
+- **so to execute code after certain delay we make use of the Browsers features**
+
+          # Browser
+
+          url
+          localstorage
+          timer
+          geolocation
+          and lot of other feature
+
+- **so the js engine access the features of browser via WEB API's**
+
+- **note setTimeout is not a part of javascript all the features available in Web Api's are not part of javascript even console.log is not part of javascript**
+
+          # Web API's
+          window(global object)
+            setTimeouts()
+            DOM API's
+            fetch()
+            localStorage
+            console
+            location
+
+- **the global object window helps to acess the Web Api's features inside the call stack**
+
+- **since window is global object we dont need to mention window keyword prepended with the web Api's we can directly use the web API's**
+
+        setTimeout(); //actually is window.setTimeout()
+
+> Event Loop & the callback queue
+
+- **to execute a callback it must be present inside the call stack this is achieved via the event loop and callback queue**
+
+        console.log('start');
+        setTimeout(function(cb){
+          console.log("callback");
+        },5000)
+        console.log('end');
+
+        # output
+        start
+        end
+        
+        # while the cb in the setTimout is still waiting for 5 seconds
+
+- **how things unfolded first start and end statment immediately executed and GEC is pop of the call stack but the cb is still waiting for 5 seconds when the 5 seconds are completed the callback is placed inside the callback queue**
+        
+        # callback queue
+
+        |--------------
+        | cb
+        |--------------
+
+        # event loop (gatekeeper)
+        will be keeping the account for the functions/callbacks inside the callback queue and then place these call back from queue to the call stack for execution.
+
+        event loop -> cb -> call stack
+
+        # call stack
+
+        |  |
+        |  |
+        |  |
+        |cb|
+        ----        
+
+        #output
+        start
+        end
+        callback
+
+> event loop
+
+- **The main job of event loop is to constantly monitor the call stack and callback queue and remove the cb from queue and pushes inside call stack**
+
+> callback queue need
+
+- **say thier is click event listener and user clicks the button 5-6 times then their would be 5-6 cb in the callback queue and they will be removed and pushed into call stack a/c to the time they have occured.**
+
+        # callback queue
+       |----------------
+       | cb cb cb cb
+       |----------------
+
+       # their is sequential removal from callback queue and pushed into call stack via event loop
+
+> IMPORTANT fetch() working 
+
+
+            console.log("start");
+
+            setTimeout(function cbT(){
+              console.log("CB setTimeout");
+            },5000);
+
+            fetch("http://someurl/someresource")
+            .then(function cbF(){
+              console.log('CB fetch');
+            });
+
+            console.log("End")
+
+            # console
+            start
+            end
+            # by this time GEC is popped of the call stack
+
+            # for async fetch task and setTimeout callback
+
+            # callback queue
+
+            |------------
+            |
+            |------------
+
+            # now cbT is waiting for 5 seconds to complete
+
+            # and cbF is waiting for response from server
+
+            # say the cbF is put into callback queue first as the response time taken is
+             5 ms cbF< 5 sec of cbT
+
+- **microtask queue is similar to callbakc queue but the it is of higher priority the functions that go inside this microtask queue will be the first ones to get pushed into call stack for execution**
+
+             # Microtask queue
+
+             since cbF<cbT in terms of time
+
+             |---------
+             |cbF
+             |--------
+
+             #event loop will monitor the callback queue 
+
+            # callback queue
+
+            |-------
+            |cbT
+            |-------
+
+            # event loop will give the chance to microtask queue first
+
+            |       |
+            |       |
+            | cbF   |
+            |-------|
+
+            # console
+
+            start
+            end
+            CB fetch
+
+            same thing happens now for cbT inside callback queue
+
+            start
+            end
+            CB fetch
+            CB setTimeout
+
+> Microtask queue interview question
+
+- **since microtask queue is given priority over the callback queue what type of tasks can come inside the microtask queue**
+
+> **IMPORTANT All the callback functions that are result of promises will go inside the microtask queue**
+
+> **all the mutation observer i.e the changes in the DOM tree  goes inside microtask queue**
+
+---
+
+###  Starvations of function in callback queue
+
+- **suppose their are three promises or mutation observer inside the microtask queue and 1 cb in callback queue so the 1 cb in callback queue will only get the chance to get executed when all the 3 microtask has been executed.**
+
+          # microtask queue
+
+          |---------------
+          | p1CB p2CB moCB
+          |---------------
+
+          where p1CB - promise 1 callback
+          moCB- mutation observer callback
+
+          # callback queue
+          
+          |---------------
+          | cb
+          |---------------
+
+          cb - simple callback
+
+          #  first the p1CB,p2CB,moCB are executed then cb is executed once microtask queue is empty and hence callbacks in the callback queue will be starved
+
+---
+
+##  16.) Functional Programming in javascript and What are Higher Order Functions
+
+- **higher order functions helps to implement functional programming**
+
+> Higher order function
+
