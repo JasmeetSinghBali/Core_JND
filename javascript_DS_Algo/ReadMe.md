@@ -61,7 +61,7 @@
 
 ---
 
-> Binary Search Tree(BST) O(logn) Database Indexing
+> ## Binary Search Tree(BST) O(logn) Database Indexing
 
 - Each Node can have exactly two branches left and right i.e two childs for each node possible.
 
@@ -89,7 +89,7 @@
         1             6
                            7
 
-## Binary Search Tree Traversal & Height
+> ### Binary Search Tree Traversal & Height
 
 - **Height of the node in BST is the distance between the root node to any node that has either 1 children or no childrens**
 
@@ -118,7 +118,7 @@
  
 ---
 
-> Hash Tables time- O(1) search,insert,delete while space-O(n)
+> ## Hash Tables time- O(1) search,insert,delete while space-O(n)
 
 - **hash tables are used to implement associative arrays or mappings of key value pairs**
 
@@ -161,4 +161,39 @@
 
 ---
 
-> Linked List 1:03
+> ## Linked List
+
+- **elements are stored in as node**
+
+                # node
+                ---------------------
+                |        |          |
+                |  data  | nextNode |
+                ---------------------      
+                  info      link
+
+                # linked list 
+                # chain of nodes
+
+                # head points to the first node in the chain of nodes
+                
+                head
+                 |        
+                --------     -----------
+                | 1 | 2 |--->| 2   | ------| 
+                |   |   |    |     |       |
+                ---------    -----------   |
+                                           |
+                                          --- null
+
+
+> advantages & disadvantages of linked list over array
+
+- **array have fixed size , linked list have dynamic size**
+- **ineffecient insertion and deletion in arrays, efficient insertion & deletion in linked list**
+- **random access i.e efficient indexing in array, no random access in linked list**
+- **array may result in much memory wasted, in linked list no waste of memory**
+- **sequential access is faster in array(due to contiguous memory locations) than sequential access in linked list(not in contigous memory locations)**
+
+
+
