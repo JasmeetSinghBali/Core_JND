@@ -195,5 +195,29 @@
 - **array may result in much memory wasted, in linked list no waste of memory**
 - **sequential access is faster in array(due to contiguous memory locations) than sequential access in linked list(not in contigous memory locations)**
 
+***
 
+> ## Trie
 
+- [x] **Prefix tree, used to store associative data structures**
+- [x] **trie stores data in steps each step is a node often used to store letters**
+- [x] **possible use case to find a word is in a dictionary**
+- [x] **each step or node will represent one letter of a word**
+- [x] **where * represent the end of word**
+
+                        
+                b      d       s
+            a        o*          e
+               t*   l  r           n
+            l      l* k* m*      d*  s
+            l*                         e*
+
+- [x] **words are bat,ball,do,doll,dork,dorm,send,sense**
+- [x] **Map() can be used or object with key value to implement Nodes/Steps where the key represent the steps/nodes and the value represent the other nodes/steps attached to that key node example**
+                root:[b,d,s]
+                b: [a]
+                a: [t]
+                t: [l]
+                l: [l]
+
+- [x] **consider this like this every node will have its own Map**
