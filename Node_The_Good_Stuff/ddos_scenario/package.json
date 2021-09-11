@@ -1,0 +1,19 @@
+{
+  "name": "ddos_scenario",
+  "version": "1.0.0",
+  "description": "- **flooding an api endpoint with a large number of requests.**",
+  "main": "api.js",
+  "scripts": {
+    "dev": "nodemon api.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
