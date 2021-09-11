@@ -187,4 +187,27 @@ https://stackoverflow.com/questions/56312692/what-is-the-difference-between-chil
               loadtest -n 1000 -c 100 http://localhost:5000/
               // will observe different worker handling the request in the console.
 
-# Next to study about buffer and streams in Node.js and No buffering Feature in node.js.
+***
+
+> # Streams & Buffers in Node.js(IMPORTANT) 
+
+> ### refer stream_data.js for example reading .txt file in streaming manner
+
+- [x] **Streams are objects that can be read/write from/to the source/destination in continuous fashion**
+- [x] **example watching an online movie/tv series in real time**
+- [x] **4 types of streams- Readable(stream for read operation),Writable(write operation),Duplex(both read/write operations),Transform(a duplex stream where output is dependent on input)**
+- [x] **so a requested resource will be given as response to client as chunks instead of providing all the data**
+- [x] **each type of stream has eventEmitter instance and throws several events at different instances of times**
+- [x] **some of the events are data(fired when data is available for read),end(when no more data to read),error(fired when their is error in read/writing data),finish(when all the data has been flushed/deleted from underlying system)** 
+
+- [x] **buffers are used hold the data temporarily when moving from one point to another**
+
+> # Stream vs Buffer
+
+- [x] **Stream is sequence of data that complete overtime**
+- [x] **buffers are part of streams** 
+
+              This | is | my | data
+              # here the complete line is a stream
+              # and this,is,my,data are chunks i.e buffer of the streamed data
+
