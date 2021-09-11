@@ -221,3 +221,39 @@
                 l: [l]
 
 - [x] **consider this like this every node will have its own Map**
+
+***
+
+> # Heap
+**for heap visualization- https://www.cs.usfca.edu/~galles/visualization/Heap.html**
+
+- **Binary heap is a partially ordered binary tree which satisfy heap property**
+- **rules for heap are**
+- [x] **each node has at most 2 child nodes**
+- [x] **their is a specific relationship between the parent and the child nodes i.e either it is max heap where the parent is greater than its child while min heap where the parent is smaller than its child.**
+       # max heap                           # min heap
+
+                12                            1
+         10              9                5       9
+       5      6        1               10   6   12
+
+- [x] **all binary heaps are complete binary tree i.e all the levels are filled and if a level is partially filled then it is partially filled from left to right**
+
+              # tree representation
+                              20
+                   19                   17
+             13        15            8      5
+           11   9    10
+
+            # array representation order of numbering (root,left,right)
+            [null,20,19,17,13,15,8,5,11,9,10]
+              0    1  2  3  4  5 6 7  8 9  10
+                  root                     heap size
+            
+            
+            # left child = i*2
+            # right child = i*2 + 1
+            # parent is i/2
+            # note the for parent i/2-> round down i,e if 5/2=2.5 then parent is at 2 index
+
+- [x] **the most use case of heapSort is the avg and worst case sort in O(nlogn)**
