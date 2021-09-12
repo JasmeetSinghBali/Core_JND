@@ -257,3 +257,89 @@
             # note the for parent i/2-> round down i,e if 5/2=2.5 then parent is at 2 index
 
 - [x] **the most use case of heapSort is the avg and worst case sort in O(nlogn)**
+
+***
+
+> # Graphs
+
+- [x] **Graphs are collection of things and the relationship/connection between them.**
+- [x] **data in graph is called node or vertices.**
+- [x] **connection between nodes is called edges**
+- [x] **example of graph is a social network where nodes are you and other people while wheather they are your frind or not as relation edges**
+- [x] **directed graphs can be like internet and webpage links, while undirected graphs are people and relation/friend or not in social website**
+
+- [x] **ways to represent the graphs**
+- [x] **adjacency list where each node neighbouring vertices/nodes are mentioned**
+
+                # adjaency list
+                a-b-c
+                Node A: Node B
+                Node B: Node A, Node C
+                Node C: Node B
+
+                # with javascript
+                let undirectedG={
+                        NodeA:["NodeA"],
+                        Node B: ["NodeA","NodeB"],
+                        Node C: ["NodeB"]
+                };
+
+                # adjancey matrix
+                   a  b  c
+                a  0  1  0
+                b  1  0  1
+                c  0  1  0
+
+                # javascript adjaceny matrix
+                let adjMat=[
+                        [0,1,0],
+                        [1,0,1],
+                        [0,1,0]
+                ];
+
+                a<-b<-c
+                let adjMat=[
+                        [0,0,0],
+                        [1,0,0],
+                        [0,1,0]
+                ];
+
+                # incidence matrix
+                a-b    
+                | |
+                d c
+                where a-b is 1, b-c is 2,a-d is 3
+                   1 2 3 
+                a  1 0 1
+                b  1 1 0
+                c  0 1 0
+                d  0 0 1
+
+                # for directed graph
+                a->b->c
+                ^
+                |
+                d  
+                a->b is 1, b->c is 2, d->a is 3
+                   1   2  3 
+                a  1   0 -1
+                b  -1  1  0
+                c  0  -1  0
+                d  0   0  1
+
+                # here in above -1 indicate entering into node
+                1 for the node from which arrow initiated
+
+                # In javascript
+                let incMatDir = [
+                        [1,0,-1],
+                        [-1,-1,0],
+                        [0,-1,0],
+                        [0,0,1]
+                ]
+
+                # weighted graphs can be represented via specifi weight number replacing 0,1,-1
+
+> ## Graph Traversal (Breadth first search) to find distance b/w a node and all other node present in graph
+
+- [x] **Implemented via objects that takes in account the distance of each nodes and queue(for neighbour traversal)**
