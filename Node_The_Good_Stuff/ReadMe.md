@@ -9,11 +9,12 @@ This directory includes snippets, tips & tricks,facts related to **Node.js** tha
 - [x] **Serving files,directories as ftp(googledrive/dropbox)**
     - [x] **static serving system files via serve-index middleware**
     - [x] **go to localhost:5000/ftp**
-- [ ] **Creating a spinner/loader in console nodejs**
-- [ ] **implement forget/reset password one time link with JWT**
+- [x] **implement forget/reset password one time link with JWT**
 - [ ] **using compression in nodejs**
 - [ ] **scheduling jobs in nodejs**
 - [ ] **backing up mongodb data every night**
 - [ ] **upload files in nodejs single/multiple**
 - [ ] **JWT with RSA key-pair in microservices**
 - [ ] **google drive api to upload,public url for the file,delete**
+- [ ] **Creating a spinner/loader in console nodejs**
+
