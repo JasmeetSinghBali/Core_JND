@@ -46,7 +46,21 @@
                                         - run: npm test
                                         - run: npm run build
 
-- [x] **then only thing left is to stage and commit the code along with this new workflows in the remote repo**
+- [x] **then only thing left is to stage and commit the code along with this new workflows in the remote master branch of repo**
 
                             git add .
-                            git commit -m "ci: workflow🎃"
+                            git commit -m "ci: workflow"
+                            git push origin master
+
+> ## test out the ci: workflow by creating a pull request
+                        
+                        # create new branch and move into it 
+                        git checkout -b testing
+
+                        # now make some changes in the code for test to fail
+                        # then add and commit code 
+                        git add .
+                        git commit
+                        git push origin testci
+
+                        # go to github > compare & pull request 
