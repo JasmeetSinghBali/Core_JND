@@ -117,3 +117,22 @@
                         git push origin master
 
                         # done ci/cd pipeline setup
+***
+
+> ## Publishing npm package package.yml refer package.yml
+
+- [x] **needs helps to tell github actions workflow to execute something after the previous/specific job is complete**
+
+> ## Integrating Apps refer slack.yml
+
+- [x] **suppose we want a slack notification every time a github issue is reported, this can be done by setting up trigger for github issues and then a job that gets executed of posting messages to slack channel with webhooks**
+
+- [x] **can be done via both creating your own workflow or installing app in github actions**
+
+**
+
+> ## Schedule background jobs with github actions refer- cronjobs.yml
+
+
+- [x] **example how to export data on firebase on regular basis like kinda backing up db everyday**
+- [x] **use crontab guru to generate cron schedules a/c to your needs refer https://crontab.guru/** 

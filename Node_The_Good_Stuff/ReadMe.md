@@ -11,6 +11,7 @@ This directory includes snippets, tips & tricks,facts related to **Node.js** tha
     - [x] **go to localhost:5000/ftp**
 - [x] **implement forget/reset password one time link with JWT**
 - [ ] **github actions for CI/CD**
+    - [x] **automating publishing of npm packages**
 - [ ] **using compression in nodejs**
     - [x] **lesser bandwidth usage of the server**
 - [ ] **scheduling jobs in nodejs**
