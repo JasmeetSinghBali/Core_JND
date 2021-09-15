@@ -10,7 +10,9 @@ This directory includes snippets, tips & tricks,facts related to **Node.js** tha
     - [x] **static serving system files via serve-index middleware**
     - [x] **go to localhost:5000/ftp**
 - [x] **implement forget/reset password one time link with JWT**
+- [ ] **github actions for CI/CD**
 - [ ] **using compression in nodejs**
+    - [x] **lesser bandwidth usage of the server**
 - [ ] **scheduling jobs in nodejs**
 - [ ] **backing up mongodb data every night**
 - [ ] **upload files in nodejs single/multiple**
