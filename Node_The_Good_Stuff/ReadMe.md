@@ -14,9 +14,12 @@ This directory includes snippets, tips & tricks,facts related to **Node.js** tha
     - [x] **automating publishing of npm packages**
     - [x] **integrating apps with github actions**
     - [x] **scheduling jobs cron jobs like backing up data**
-- [ ] **using compression in nodejs**
+- [x] **using compression in nodejs**
     - [x] **lesser bandwidth usage of the server**
-- [ ] **scheduling jobs in nodejs**
+- [x] **scheduling jobs in nodejs**
+    - [x] schedule jobs at particular time
+    - [x] cron jobs with cron expression
+    - [x] cancelling jobs
 - [ ] **backing up mongodb data every night**
 - [ ] **upload files in nodejs single/multiple**
 - [ ] **JWT with RSA key-pair in microservices**
