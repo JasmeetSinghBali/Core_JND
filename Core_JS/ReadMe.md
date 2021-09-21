@@ -1332,9 +1332,200 @@ it can still access the global scope variable b inside of it.****
 
 ---
 
-##  16.) Functional Programming in javascript and What are Higher Order Functions
+## 16.) [].map(), [].filter(), [].reduce() (higher order functions)
+
+> Map function
+
+- **It is used to transform an array**
+
+              const arr = [5,1,3,2,6]
+              # transform means change each value of the array and return a new array
+
+              # example of transformations
+              # double
+              [10,2,6,4,12]
+              # triple
+              [15,3,9,6,18]
+              # binary
+              [101,001,011,010,110]
+
+              function double(x){
+                return x*2;
+              }
+
+              function triple(x){
+                return x*3;
+              }
+
+              function binary(x){
+                return x.toString(2);
+              }
+              const tple = arr.map(triple);
+              const dble = arr.map(double);
+              const bin = arr.map(binary);
+              console.log(tple);
+              console.log(dble);
+              console.log(bin);
+
+              const bin2 = arr.map((x)=> return x.toString(2));
+
+> filter function
+
+- **It is used to filer values inside the array**
+- **like we want to filter out all the values that are odd**
+
+            const arr = [5,1,3,2,6];
+
+            // filter out all the odd values
+
+            function isOdd(x){
+              return x%2; // returned false for 2 and 6
+            }
+  
+            const output = arr.filter(isOdd)
+            console.log(output);
+            # [5,1,3]
+
+            function isEven(x){
+              return x % 2 === 0; // returns false for 5,1,3
+            }
+            const result = arr.filter(isEven);
+            console.log(result);
+            # [2,6]
+
+            function greaterThanFour(x){
+              return x>4;
+            }
+            const res = arr.filter(greaterThanFour);
+            console.log(res);
+            # [5,6]
+
+            # OR
+
+            const res = arr.filter((x)=>{
+              return x > 4;
+            });
+            # output
+            [5,6]
+
+> reduce function (iterate over an array and find a single value as result) act more like aggregation than reduction
+
+- **It does not reduce anything it is named incorrectly💀**
+- **reduce is used where we have multiple values in array and we want to come up with a single value as a final result.**
+
+- **reduce callback function has two parameters acc(accumaltor) & curr(current) while reduce has two parameters itself one callback and one initial value of the accumalator**
+                 
+                 # curr represents the value of each iterated element in the array
+                 # while acc is used to accumalate or store the final result
+                 [].reduce((acc,curr)=>{
+                 },accInitialValue)
+
+                 const arr = [5,1,3,2,6];
+
+                 # =========without using the reduce approach========
+                 // find sum
+                 function findSum(arr){
+                   let sum = 0;
+                   for (let i = 0 ; i<arr.length;i++){
+                     sum+=arr[i];
+                   }
+                   return sum;
+                 }
+
+                 # ============ The reduce way =============
+                 const output = arr.reduce((acc,curr)=>{
+                   acc = acc + curr;
+                   return acc;
+                 },0);
+                 console.log(output);
+                 # 17
+
+                 // find max number
+                 // =========== without using reduce ============
+                 function findMax(arr){
+                   let maxNumber = arr[0];
+                   for (let i = 1 ; i<arr.length;i++){
+                     if(arr[i]>maxNumber){
+                       maxNumber = arr[i]
+                     }
+                   }
+                   return maxNumber;
+                 } 
+
+                 // ======== With reduce method =============
+                 const maxResult = arr.reduce((maxNum,curr)=>{
+                   if(curr>maxNum){
+                     maxNum=curr;
+                   }
+                   return maxNum;
+                 },0)
+                 console.log(maxResult);
+                 # 6
+
+> ( IMPORTANT )Realtime use cases for map,filter,reduce
+
+                # consider array of objects like api data
+                const users = [
+                  {firstName:"bhaiya",lastName:"ji",age:25},
+                  {firstName:"teenager",lastName:"bacha",age:14},
+                  {firstName:"jawan",lastName:"launda",age:25},
+                  {firstName:"baba",lastName:"yoda",age:60},
+                ];
+
+                # get the list of full names
+                const res = users.map((user)=>{
+                  return user.firstName + " "+ user.lastname;
+                });
+
+                console.log(res);
+                # Output
+                ["bhaiya ji","teenager bacha","jawan launda","baba yoda"]
+
+                # how many users have a particular age i.e return a single object with key as age and value as number of people with that age
+
+                const output = users.reduce((acc,curr)=>{
+                  
+                  // for subsequent occurences
+                  if(acc[curr.age]){
+                    acc[curr.age] = ++acc[curr.age];
+                  }
+                  // for the first time
+                  acc[curr.age] = 1;
+                  return acc;
+                },{});
+                console.log(output);
+                # output
+                { 25 : 2 , 14 : 1 , 60 : 1 }
+
+
+> Chaining map,filter and reduce
+
+                # find out people first name whose age is less than 30
+                const result = users.filter((user) => return user.age < 30)
+                .map((x) => return x.firstName);
+                console.log(result);
+
+                # output
+
+                ["bhaiya","teenager","jawaan"]
+
+                const result = users.reduce((acc,curr)=>{
+                  if(curr.age<30){
+                    acc.push(curr.firstName);
+                  }
+                  return acc;
+                },[]);
+
+                 
+
+
+
+---
+
+##  17.) Functional Programming in javascript and What are Higher Order Functions
 
 - **higher order functions helps to implement functional programming**
 
 > Higher order function
 
+ 
