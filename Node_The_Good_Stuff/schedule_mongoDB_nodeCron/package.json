@@ -1,0 +1,19 @@
+{
+  "name": "schedule_mongodb_nodecron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "node-cron": "^3.0.0",
+    "save": "^2.4.0"
+  }
+}
