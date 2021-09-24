@@ -23,8 +23,20 @@
                 # step-3 Restoring database
 
                 // in the cmd shell
-
+                // --nsInclude=db.collection
                 mongorestore --nsInclude=test.mydb --archive=./mydb.gzip --gzip 
 
-                // mydb_name reappeared/restored in collections list in mongoCompass
-4:45
+                // test reappeared/restored in collections list in mongoCompass
+
+
+                # step -4
+                // connect to the mongocloud via mongo compass
+                // create a new db named as test and collection mydb with mock document
+                // make sure mongod is running in background
+                // make sure you have a dir name public in your current project folder from where you run the below command
+                npm run dev
+
+                // the new test.gzip will be added to the public folder a/c to the scheduled cron expression
+
+> IMPORTANT Further a child process function for dbrestore can be created refer app.js and use the mongorestore command
+
