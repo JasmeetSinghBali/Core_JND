@@ -20,7 +20,7 @@ This directory includes snippets, tips & tricks,facts related to **Node.js** tha
     - [x] schedule jobs at particular time
     - [x] cron jobs with cron expression
     - [x] cancelling jobs
-- [ ] **Scheduled backing up mongodb data every night using Node.js node-cron**
+- [x] **Scheduled backing up mongodb data every night using Node.js node-cron**
     - [x] refer schedule_mongoDB_nodeCron
 - [ ] **upload files in nodejs single/multiple**
 - [ ] **JWT with RSA key-pair in microservices**
