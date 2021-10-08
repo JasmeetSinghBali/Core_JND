@@ -35,11 +35,29 @@
 
                                 y for yes & n for no
 
-> Commit messages
+> Commit messages(git commit) to open up editor to add commit messages/body
 
 - [x] Subject = concise summary of what happened
 - [x] Body = more detailed explaination
+
   - [x] change
   - [x] reason for change
   - [x] what impact it creates
   - [x] anything to watch for/note to self/or other for future dev
+
+                        # make sure git config has core.editor set up
+                        git config --global core.editor "code --wait"
+
+                        # after staging
+                        git add .
+
+                        # use the git commit to open editor that can be used to add commit messages and body
+                        git commit
+
+> In the editor
+
+                        First line is Subject for the commit
+                        space
+                        Body of the Commit
+
+> git log to have a look at your commit message
