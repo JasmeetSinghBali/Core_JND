@@ -16,6 +16,9 @@ app.use(express.static(path.join(__dirname,'public')));
 // ✔ Event Listener each time a new client connects to the socket server instance io 
 io.on('connection',socket=>{
     console.log(`🎎 ClientId: ${socket.id} connected to websocket...`);
+
+    // emits an event named message with string as second param
+    socket.emit('message','This is SocketServer, Welcome to chatApp!');
 });
 
 

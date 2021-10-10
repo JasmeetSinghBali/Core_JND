@@ -19,3 +19,21 @@
                 <script src="/socket.io/socket.io.js"></script>
 
 > Emitting Events back & forth via socket b/w client & server
+
+                # ========= Server Side (server.js) ============
+                # Emits an event named message with string as second param
+
+                # .emit(eventName,callback/message)
+
+                # Event register named as message that returns a welcome message when it is triggered
+
+                socket.emit('message','Welcome to chatApp!')
+
+                # ========== Client Side (main.js)=============
+
+                # catching the message event
+
+                socket.on('message',message=>{
+                    console.log(message);
+                    // refer dev tools see console at localhost:5000/
+                });
