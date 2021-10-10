@@ -14,9 +14,13 @@
 
 - **express under the hood uses http createServer method to create server,we can directly access this createServer method though say in the case when we are setting up server with socket.io**
 
+---
+
 > to get access to frontend liberary of socket.io include this tag in index.html(client)
 
                 <script src="/socket.io/socket.io.js"></script>
+
+---
 
 > Emitting Events back & forth via socket b/w client & server
 
@@ -38,6 +42,8 @@
                     // refer dev tools see console at localhost:5000/
                 });
 
+---
+
 > Broadcast emit events
 
                         # broadcast to everyone except the origin client
@@ -49,3 +55,7 @@
                         io.emit()
 
 **emits message/data to everybody including the one who send that message like a chat application**
+
+---
+
+> Implement Realtime messaging 17:20
