@@ -1,4 +1,4 @@
-> ## Socket.io Basics
+> ## What is socket.io & its useCase
 
 > Socket.io makes a connection b/w client and server that persists
 

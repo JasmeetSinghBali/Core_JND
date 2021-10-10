@@ -1,4 +1,4 @@
-> ## Dev logs
+> ## Dev logs & Socket.io application/app development guide
 
 - [x] moment helps in date formats
 
@@ -37,3 +37,15 @@
                     console.log(message);
                     // refer dev tools see console at localhost:5000/
                 });
+
+> Broadcast emit events
+
+                        # broadcast to everyone except the origin client
+                        socket.broadcast.emit()
+
+**emits message/data to everyone except the user who got connected**
+
+                        # broadcast to everyone including origin client
+                        io.emit()
+
+**emits message/data to everybody including the one who send that message like a chat application**

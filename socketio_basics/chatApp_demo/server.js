@@ -17,8 +17,18 @@ app.use(express.static(path.join(__dirname,'public')));
 io.on('connection',socket=>{
     console.log(`🎎 ClientId: ${socket.id} connected to websocket...`);
 
-    // emits an event named message with string as second param
+    // 🦨 emits a welcome message to current user
     socket.emit('message','This is SocketServer, Welcome to chatApp!');
+
+    // 🦨 Broadcast to everyone when a user connects at frontend except the origin client(who connected)
+    socket.broadcast.emit('message','User with ThisName has joined the chat');
+
+    // 🎈 event that triggers when client disconnects
+    socket.on('disconnect',()=>{
+        // 🦨 broadcast message to everyone that user left the chat  
+        io.emit('message','A user has left the chat');
+    });
+
 });
 
 
