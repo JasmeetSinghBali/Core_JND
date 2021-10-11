@@ -58,4 +58,8 @@
 
 ---
 
-> Implement Realtime messaging 17:20
+> Implement Realtime messaging
+
+                        # refer main.js adding event listener when message is submit via chat-form
+
+                        # refer server.js for catching client submit message & displaying+broadcasting to every other user with chat window

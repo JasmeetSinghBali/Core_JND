@@ -29,6 +29,15 @@ io.on('connection',socket=>{
         io.emit('message','A user has left the chat');
     });
 
+    // 🎈 Catch/Listen for chatMessage event submit by a user
+    socket.on('chatMessage',(msg)=>{
+        // message coming from client catched at server side
+        //console.log(msg);
+
+        // 🌠 emit the catched client message to everybody from server
+        // 🦨 broadcast to everyone
+        io.emit('message',msg);
+    });
 });
 
 
