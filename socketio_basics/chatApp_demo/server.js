@@ -3,6 +3,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
+const formatMessage = require('./utils/messages');
 
 
 const app = express();
@@ -13,20 +14,22 @@ const io = socketio(server);
 // ✨ Server the public dir as static act as client UI
 app.use(express.static(path.join(__dirname,'public')));
 
+const sockServer = 'SocketServer';
+
 // ✔ Event Listener each time a new client connects to the socket server instance io 
 io.on('connection',socket=>{
-    console.log(`🎎 ClientId: ${socket.id} connected to websocket...`);
+    //console.log(`🎎 ClientId: ${socket.id} connected to websocket...`);
 
     // 🦨 emits a welcome message to current user
-    socket.emit('message','This is SocketServer, Welcome to chatApp!');
+    socket.emit('message',formatMessage(sockServer,' says: Welcome to chatApp!'));
 
     // 🦨 Broadcast to everyone when a user connects at frontend except the origin client(who connected)
-    socket.broadcast.emit('message','User with ThisName has joined the chat');
+    socket.broadcast.emit('message',formatMessage(sockServer,' says: New User joined the chat'));
 
     // 🎈 event that triggers when client disconnects
     socket.on('disconnect',()=>{
         // 🦨 broadcast message to everyone that user left the chat  
-        io.emit('message','A user has left the chat');
+        io.emit('message',formatMessage(sockServer,' says: A user has left the chat'));
     });
 
     // 🎈 Catch/Listen for chatMessage event submit by a user
@@ -36,7 +39,7 @@ io.on('connection',socket=>{
 
         // 🌠 emit the catched client message to everybody from server
         // 🦨 broadcast to everyone
-        io.emit('message',msg);
+        io.emit('message',formatMessage('USER',msg));
     });
 });
 
