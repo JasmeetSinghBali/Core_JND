@@ -65,3 +65,10 @@
                         # refer server.js for catching client submit message & displaying+broadcasting to every other user with chat window
 
 > Formatting messages refer utils dir-> messages.js
+
+> Grabbing the query string to identify username for different rooms
+
+                    google qs cdn
+                    include the cdn link in minified in chat.html
+
+> joinRoom event refer server.js and main.js with users.js utils
